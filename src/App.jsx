@@ -11,27 +11,42 @@ import {
   fetchForecast
 } from "./api";
 
+
+
+
 function App() {
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);
   const [error, setError] = useState("");
 
-  const handleSearch = async (city) => {
+  const handleSearch = async (input, inputType = "city") => {
     try {
       setError("");
-      const data = await fetchWeatherByCity(city);
+      let data;
+
+      if (inputType === "coords") {
+        // Parse coordinates (lat,lon format)
+        const [lat, lon] = input.split(",").map((coord) => coord.trim());
+        if (!lat || !lon || isNaN(lat) || isNaN(lon)) {
+          throw new Error("Invalid coordinates format. Use: latitude,longitude");
+        }
+        data = await fetchWeatherByCoords(parseFloat(lat), parseFloat(lon));
+      } else if (inputType === "zip") {
+        // Fetch by zip code with country code optional
+        data = await fetchWeatherByCity(input);
+      } else {
+        // Default to city search
+        data = await fetchWeatherByCity(input);
+      }
+
       setWeather(data);
 
-      const forecastData = await fetchForecast(
-        data.coord.lat,
-        data.coord.lon
-      );
+      const forecastData = await fetchForecast(data.coord.lat, data.coord.lon);
       setForecast(forecastData);
-
     } catch (err) {
       setWeather(null);
       setForecast([]);
-      setError(err.message);
+      setError(err?.message || "Failed to fetch weather data");
     }
   };
 
@@ -56,8 +71,9 @@ function App() {
           setForecast(forecastData);
 
         } catch (err) {
-          setError("Failed to fetch location weather",err);
-        }
+  setError(err.message || "Failed to fetch location weather");
+}
+
       },
       () => {
         setError("Location permission denied");
@@ -70,14 +86,14 @@ function App() {
   <div className="bg-white/20 backdrop-blur-lg shadow-xl rounded-2xl w-full max-w-3xl p-6 text-white">
     
     
-      <h1>Weather App</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">🌤️ Weather App</h1>
+     {error && <ErrorMessage message={error} />}
 
       <SearchBar
         onSearch={handleSearch}
         onCurrentLocation={handleCurrentLocation}
       />
 
-      <ErrorMessage message={error} />
 
       <WeatherCard weather={weather} />
 
