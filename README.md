@@ -2,8 +2,6 @@
 
 A modern, responsive weather application built with **React (Vite)**, **Tailwind CSS**, and the **OpenWeatherMap API**. Features real-time weather data, 5-day forecasts, and location-based services.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-green.svg)](your-demo-link)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ---
 
@@ -220,10 +218,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Mohit**  
 Frontend Developer
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-- Portfolio: [yourportfolio.com](https://yourportfolio.com)
+- GitHub: [username](https://github.com/mohityadav-14)
+- LinkedIn: [Profile](https://www.linkedin.com/in/mohit-yadav-09282436b/)
+- Email: my1494810@gmail.com
 
 ---
 
@@ -238,6 +235,4 @@ Frontend Developer
 
 <div align="center">
   Made with ❤️ by Mohit
-  
-  ⭐ Star this repo if you found it helpful!
-</div>
+  </div>
